@@ -76,9 +76,26 @@ export class CartService {
   // }
 
   private saveCart(): void {
-    localStorage.setItem('cart', JSON.stringify(this.cart));
-    this.cartObservable.next(this.cart);
+    this.authService.onUserLoggedIn.subscribe((loggedIn: boolean) => {
+      if (loggedIn) {
+        console.log('User is logged in. Saving cart...');
+      } else {
+        console.log('User is not logged in. Cart will be saved locally.');
+      }
+
+      localStorage.setItem('cart', JSON.stringify(this.cart));
+      this.cartObservable.next(this.cart);
+    });
+
+    // Emit the event to check if the user is logged in
+    this.authService.checkUserLoggedIn();
   }
+
+
+//   private saveCart(): void {
+//     localStorage.setItem('cart', JSON.stringify(this.cart));
+//     this.cartObservable.next(this.cart);
+//   }
 }
 
 

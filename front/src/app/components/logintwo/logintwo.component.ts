@@ -19,6 +19,7 @@ export class LogintwoComponent {
     this.authService.login(this.username, this.password).subscribe(data => {
       localStorage.setItem('access_token', data.access);
       localStorage.setItem('refresh_token', data.refresh);
+      localStorage.setItem('username', data.username);
       console.log('user logged in:' , data.username);
     });
   }
